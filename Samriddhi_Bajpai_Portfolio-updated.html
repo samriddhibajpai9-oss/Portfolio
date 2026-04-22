@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samriddhi Bajpai — Portfolio</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f5f7fa; color: #1a1a2e; padding: 2rem 1rem; }
+  .port { max-width: 900px; margin: 0 auto; }
+
+  .hero { background: #1B6B8A; border-radius: 12px; padding: 2.5rem 2rem 2rem; margin-bottom: 2rem; color: white; }
+  .hero-name { font-size: 28px; font-weight: 600; margin-bottom: 4px; }
+  .hero-title { font-size: 15px; opacity: 0.85; margin-bottom: 1.25rem; }
+  .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.25rem; }
+  .tag { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 4px 12px; font-size: 12px; color: white; }
+  .hero-contacts { display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; opacity: 0.9; }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 2rem; }
+  .stat { background: #eaf4f8; border-radius: 8px; padding: 1rem; text-align: center; }
+  .stat-num { font-size: 26px; font-weight: 600; color: #1B6B8A; }
+  .stat-label { font-size: 12px; color: #555; margin-top: 4px; line-height: 1.4; }
+
+  .section-title { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #1B6B8A; margin-bottom: 1rem; padding-bottom: 6px; border-bottom: 2px solid #1B6B8A; }
+  .section { margin-bottom: 2rem; }
+
+  .tab-nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.75rem; }
+  .tab-btn { padding: 7px 18px; border-radius: 20px; font-size: 13px; cursor: pointer; border: 1px solid #ccc; background: #eef; color: #555; }
+  .tab-btn.active { background: #1B6B8A; color: white; border-color: #1B6B8A; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .exp-card { background: white; border: 1px solid #ddd; border-radius: 12px; padding: 1.25rem; margin-bottom: 12px; border-left: 4px solid #1B6B8A; }
+  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; flex-wrap: wrap; gap: 6px; }
+  .exp-role { font-size: 15px; font-weight: 600; }
+  .exp-company { font-size: 13px; color: #1B6B8A; margin-top: 2px; }
+  .exp-date { font-size: 12px; color: #777; background: #f0f4f8; padding: 3px 10px; border-radius: 20px; }
+  .exp-bullets { list-style: none; margin-top: 10px; }
+  .exp-bullets li { font-size: 13px; color: #444; padding: 3px 0 3px 16px; line-height: 1.6; position: relative; }
+  .exp-bullets li::before { content: '▸'; position: absolute; left: 0; color: #1B6B8A; }
+  .highlight { color: #1B6B8A; font-weight: 600; }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .skill-block { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 1rem; }
+  .skill-block-title { font-size: 12px; font-weight: 600; color: #1B6B8A; margin-bottom: 10px; }
+  .skill-pill { display: inline-block; background: #f0f4f8; border-radius: 20px; padding: 3px 10px; font-size: 12px; color: #555; margin: 3px 3px 3px 0; }
+
+  .cs-card { background: white; border: 1px solid #ddd; border-radius: 12px; margin-bottom: 1.5rem; overflow: hidden; }
+  .cs-top { padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+  .cs-top.c1 { background: #1B6B8A; }
+  .cs-top.c2 { background: #0d4a63; }
+  .cs-top.c3 { background: #145c78; }
+  .cs-num { font-size: 11px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .cs-name { font-size: 17px; font-weight: 600; color: white; }
+  .cs-sub { font-size: 13px; color: rgba(255,255,255,0.75); margin-top: 3px; }
+  .cs-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .cs-tag { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; padding: 3px 10px; font-size: 11px; color: white; }
+  .cs-body { padding: 1.5rem; }
+  .cs-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem; }
+  @media (max-width: 580px) { .cs-grid { grid-template-columns: 1fr; } }
+  .csl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: #1B6B8A; margin-bottom: 6px; }
+  .cst { font-size: 13px; color: #555; line-height: 1.6; }
+  .cs-divider { border: none; border-top: 1px solid #eee; margin: 1.25rem 0; }
+  .cs-results { display: flex; gap: 12px; flex-wrap: wrap; }
+  .cs-result-pill { background: #EAF4F8; border-radius: 8px; padding: 10px 16px; flex: 1; min-width: 130px; }
+  .cs-result-num { font-size: 20px; font-weight: 600; color: #1B6B8A; }
+  .cs-result-label { font-size: 12px; color: #1B6B8A; margin-top: 2px; line-height: 1.4; }
+  .example-box { background: #f5f9fc; border-left: 3px solid #1B6B8A; border-radius: 0 8px 8px 0; padding: 0.75rem 1rem; margin-top: 0.75rem; }
+  .example-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: #1B6B8A; margin-bottom: 5px; }
+  .example-text { font-size: 13px; color: #555; line-height: 1.6; }
+  .steps-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 0.75rem; }
+  .step { display: flex; align-items: center; gap: 7px; background: #f0f4f8; border-radius: 8px; padding: 7px 12px; font-size: 12px; color: #555; }
+  .step-num { width: 20px; height: 20px; background: #1B6B8A; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.75rem; }
+  @media (max-width: 520px) { .two-col { grid-template-columns: 1fr; } }
+  .mini-card { background: #f5f9fc; border-radius: 8px; padding: 0.85rem 1rem; }
+  .mini-card-title { font-size: 12px; font-weight: 600; color: #1B6B8A; margin-bottom: 5px; }
+  .mini-card-text { font-size: 12px; color: #555; line-height: 1.5; }
+
+
+</style>
+</head>
+<body>
+<div class="port">
+
+  <div class="hero">
+    <div class="hero-name">Samriddhi Bajpai</div>
+    <div class="hero-title">Instructional Designer & Learning Experience Specialist | 8+ Years</div>
+    <div class="hero-tags">
+      <span class="tag">SaaS Customer Education</span>
+      <span class="tag">eLearning Design</span>
+      <span class="tag">AI-Enabled Content</span>
+      <span class="tag">LMS Management</span>
+      <span class="tag">Learning Analytics</span>
+    </div>
+    <div class="hero-contacts">
+      <span>📍 Bengaluru, India</span>
+      <span>✉ samriddhi.bajpai9@gmail.com</span>
+      <span>📞 +91 8447858138</span>
+      <span>🔗 linkedin.com/in/samriddhi-bajpai-a1730211b</span>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num">100+</div><div class="stat-label">WBT courses designed</div></div>
+    <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Camtasia videos produced</div></div>
+    <div class="stat"><div class="stat-num">~25%</div><div class="stat-label">increase in learner engagement</div></div>
+    <div class="stat"><div class="stat-num">~40%</div><div class="stat-label">faster dev time via AI</div></div>
+    <div class="stat"><div class="stat-num">8+</div><div class="stat-label">years in instructional design</div></div>
+  </div>
+
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('experience', this)">Experience</button>
+    <button class="tab-btn" onclick="switchTab('casestudies', this)">Case Studies</button>
+    <button class="tab-btn" onclick="switchTab('skills', this)">Skills</button>
+
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div id="tab-experience" class="tab-content active">
+    <div class="section">
+      <div class="section-title">Professional Experience</div>
+      <div class="exp-card">
+        <div class="exp-header">
+          <div><div class="exp-role">Education & Training Specialist</div><div class="exp-company">Anthology Inc. · Bengaluru</div></div>
+          <div class="exp-date">May 2021 – Present</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Built the entire customer training library for <span class="highlight">Anthology Student</span> — 100+ WBT courses covering every product feature, one course per feature</li>
+          <li>Produced <span class="highlight">50+ Camtasia training videos</span> — screen-recorded, narrated walkthroughs of every key feature and workflow</li>
+          <li>Achieved <span class="highlight">~25% increase in learner engagement</span> across enterprise training programs</li>
+          <li>Reduced content development time by <span class="highlight">~40%</span> using AI tools — Trint (transcription) and ElevenLabs (voiceover)</li>
+          <li>Managed Moodle, Blackboard, and Northpass LMS with SCORM/xAPI compliance and reporting</li>
+          <li>Applied learning analytics to identify performance gaps and drive continuous improvement</li>
+          <li>Produced WCAG 2.1-compliant assets — all videos captioned and transcribed</li>
+        </ul>
+      </div>
+      <div class="exp-card">
+        <div class="exp-header">
+          <div><div class="exp-role">Instructional Designer</div><div class="exp-company">Focus Edumatics Pvt Ltd · Bengaluru</div></div>
+          <div class="exp-date">Dec 2020 – Apr 2021</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Developed interactive K–12 eLearning modules mapped to Bloom's Taxonomy, ADDIE & ARCS models</li>
+          <li>Redesigned lesson frameworks with microlearning & gamification — higher completion rates</li>
+          <li>Authored storyboards and ILT/WBT courses for diverse learning styles (WCAG 2.1)</li>
+        </ul>
+      </div>
+      <div class="exp-card">
+        <div class="exp-header">
+          <div><div class="exp-role">Instructional Designer</div><div class="exp-company">SFJ Business Solutions · Bengaluru</div></div>
+          <div class="exp-date">Feb 2020 – Apr 2020</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Designed new-hire onboarding programs and scenario-based assessments</li>
+          <li>Partnered with L&D and HR teams to curate competency-based learning content</li>
+        </ul>
+      </div>
+      <div class="exp-card">
+        <div class="exp-header">
+          <div><div class="exp-role">Marketing Coordinator (L&D Focus)</div><div class="exp-company">Redington India Ltd. · New Delhi / Bengaluru</div></div>
+          <div class="exp-date">Jul 2017 – Oct 2019</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Developed product education content and certification modules, driving nationwide learner awareness</li>
+          <li>Applied ADDIE model for course redesign, improving content relevance and learner feedback</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CASE STUDIES -->
+  <div id="tab-casestudies" class="tab-content">
+    <div class="section">
+      <div class="section-title">Case Studies — Anthology Inc.</div>
+      <div class="cs-card">
+        <div class="cs-top c1">
+          <div><div class="cs-num">Case study 01</div><div class="cs-name">100+ WBT Course Library for Anthology Student</div><div class="cs-sub">One course per feature — complete self-service training for every product capability</div></div>
+          <div class="cs-tags"><span class="cs-tag">Storyline 360</span><span class="cs-tag">Rise 360</span><span class="cs-tag">Captivate</span><span class="cs-tag">SCORM</span><span class="cs-tag">Northpass</span></div>
+        </div>
+        <div class="cs-body">
+          <div class="cs-grid">
+            <div><div class="csl">The challenge</div><div class="cst">Anthology Student is a feature-rich SIS platform. Customers — university administrators and staff — needed self-paced training to independently learn every feature without relying on live support or costly training sessions.</div></div>
+            <div><div class="csl">My approach</div><div class="cst">Architected a WBT library where each course covered exactly one product feature. Every module: feature context → step-by-step software simulation of the live environment → guided practice → knowledge check. Used Storyline 360 and Captivate for interactive simulations, Rise 360 for structured overviews.</div></div>
+            <div><div class="csl">Design decisions</div><div class="cst">One feature = one course for clarity. Simulations mirrored the real Anthology Student environment exactly. SCORM-packaged for LMS deployment, tracking, and completion reporting.</div></div>
+          </div>
+          <div class="example-box">
+            <div class="example-label">Example — "How to Generate an Academic Records Report"</div>
+            <div class="example-text">The WBT shows exact steps in a simulated environment: open Anthology Student → navigate to Reports module → select Academic Records → configure filters (student ID, academic term, programme) → preview the report → generate and export as PDF. On-screen click indicators, callout boxes, and narration guide every action.</div>
+          </div>
+          <hr class="cs-divider">
+          <div class="csl">Results</div>
+          <div class="cs-results">
+            <div class="cs-result-pill"><div class="cs-result-num">100+</div><div class="cs-result-label">WBT courses covering every product feature</div></div>
+            <div class="cs-result-pill"><div class="cs-result-num">Faster</div><div class="cs-result-label">customer time-to-competency on the platform</div></div>
+            <div class="cs-result-pill"><div class="cs-result-num">↓ Tickets</div><div class="cs-result-label">fewer feature-related support queries</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-card">
+        <div class="cs-top c2">
+          <div><div class="cs-num">Case study 02</div><div class="cs-name">50+ Camtasia Training Videos for Anthology Student</div><div class="cs-sub">Screen-recorded, narrated video guides for every key feature and workflow</div></div>
+          <div class="cs-tags"><span class="cs-tag">Camtasia</span><span class="cs-tag">ElevenLabs</span><span class="cs-tag">Trint</span><span class="cs-tag">WCAG 2.1</span><span class="cs-tag">Moodle</span></div>
+        </div>
+        <div class="cs-body">
+          <div class="cs-grid">
+            <div><div class="csl">The challenge</div><div class="cst">Complex, multi-step workflows in Anthology Student needed clear, narrated video walkthroughs that customers could pause, rewind, and follow along in real time — especially for report generation, enrolment processing, and academic configuration.</div></div>
+            <div><div class="csl">My approach</div><div class="cst">Produced 50+ screen-recorded training videos in Camtasia showing the exact Anthology Student environment. AI-generated voiceover (ElevenLabs) narrated each step. Trint auto-generated accurate captions and transcripts for WCAG 2.1 accessibility compliance.</div></div>
+            <div><div class="csl">Production quality</div><div class="cst">Callout annotations and zoom-in effects highlighted key clicks. Consistent branding across all 50+ videos. Videos embedded inside WBT courses and published standalone on Moodle for quick reference.</div></div>
+          </div>
+          <div class="csl" style="margin-top:0.75rem;">Typical video structure</div>
+          <div class="steps-row">
+            <div class="step"><div class="step-num">1</div>Brief intro</div>
+            <div class="step"><div class="step-num">2</div>Navigate to feature</div>
+            <div class="step"><div class="step-num">3</div>Step-by-step walkthrough</div>
+            <div class="step"><div class="step-num">4</div>Zoom-ins & callouts</div>
+            <div class="step"><div class="step-num">5</div>Summary</div>
+          </div>
+          <div class="two-col">
+            <div class="mini-card"><div class="mini-card-title">Topics covered (examples)</div><div class="mini-card-text">Academic Records · Enrolment Management · Financial Aid · Student Profile · Degree Audit · Attendance · Course Scheduling · Grade Entry · and 40+ more</div></div>
+            <div class="mini-card"><div class="mini-card-title">Accessibility & delivery</div><div class="mini-card-text">All 50+ videos captioned with Trint transcripts. Published on Moodle with SCORM tracking. Embedded within corresponding Storyline/Captivate WBT modules.</div></div>
+          </div>
+          <hr class="cs-divider">
+          <div class="csl">Results</div>
+          <div class="cs-results">
+            <div class="cs-result-pill"><div class="cs-result-num">50+</div><div class="cs-result-label">professional training videos delivered</div></div>
+            <div class="cs-result-pill"><div class="cs-result-num">WCAG</div><div class="cs-result-label">2.1 compliant — fully captioned & transcribed</div></div>
+            <div class="cs-result-pill"><div class="cs-result-num">↑ Engagement</div><div class="cs-result-label">higher completion on video-based learning</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-card">
+        <div class="cs-top c3">
+          <div><div class="cs-num">Case study 03</div><div class="cs-name">AI-Accelerated Production Pipeline at Scale</div><div class="cs-sub">Delivering 150+ assets — WBTs and videos — without sacrificing quality</div></div>
+          <div class="cs-tags"><span class="cs-tag">ElevenLabs</span><span class="cs-tag">Trint</span><span class="cs-tag">Storyline 360</span><span class="cs-tag">Camtasia</span><span class="cs-tag">Agile</span></div>
+        </div>
+        <div class="cs-body">
+          <div class="cs-grid">
+            <div><div class="csl">The challenge</div><div class="cst">Building 100+ WBT courses and 50+ Camtasia videos simultaneously is a massive undertaking. Traditional voiceover recording and transcription workflows were creating bottlenecks — especially when product updates required rapid course revisions.</div></div>
+            <div><div class="csl">My approach</div><div class="cst">Designed a repeatable AI-first production workflow: scripts written per module → AI voiceover (ElevenLabs) → automated captions (Trint) → Camtasia recording with callouts → packaged in Storyline/Captivate with knowledge checks → SCORM-deployed to LMS.</div></div>
+            <div><div class="csl">Team impact</div><div class="cst">Pioneered this workflow within the Anthology L&D team. The pipeline became a reusable template for all new feature training — meaning when Anthology Student launched new features, new courses and videos could be produced rapidly.</div></div>
+          </div>
+          <hr class="cs-divider">
+          <div class="csl">Results</div>
+          <div class="cs-results">
+            <div class="cs-result-pill"><div class="cs-result-num">~40%</div><div class="cs-result-label">reduction in overall production time</div></div>
+            <div class="cs-result-pill"><div class="cs-result-num">150+</div><div class="cs-result-label">total training assets delivered</div></div>
+            <div class="cs-result-pill"><div class="cs-result-num">Reusable</div><div class="cs-result-label">AI pipeline adopted for all new feature rollouts</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <div id="tab-skills" class="tab-content">
+    <div class="section">
+      <div class="section-title">Core Skills & Tools</div>
+      <div class="skills-grid">
+        <div class="skill-block"><div class="skill-block-title">Authoring tools</div><span class="skill-pill">Articulate Storyline 360</span><span class="skill-pill">Rise 360</span><span class="skill-pill">Adobe Captivate</span><span class="skill-pill">Camtasia</span><span class="skill-pill">Vyond</span><span class="skill-pill">Canva</span></div>
+        <div class="skill-block"><div class="skill-block-title">LMS & standards</div><span class="skill-pill">Moodle</span><span class="skill-pill">Blackboard</span><span class="skill-pill">Northpass</span><span class="skill-pill">SCORM</span><span class="skill-pill">xAPI</span><span class="skill-pill">WCAG 2.1</span></div>
+        <div class="skill-block"><div class="skill-block-title">ID frameworks</div><span class="skill-pill">ADDIE</span><span class="skill-pill">SAM</span><span class="skill-pill">Agile</span><span class="skill-pill">ARCS</span><span class="skill-pill">Bloom's Taxonomy</span><span class="skill-pill">LXD</span></div>
+        <div class="skill-block"><div class="skill-block-title">AI & specialisations</div><span class="skill-pill">Trint</span><span class="skill-pill">ElevenLabs</span><span class="skill-pill">Microlearning</span><span class="skill-pill">Gamification</span><span class="skill-pill">Learning Analytics</span></div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+<script>
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
